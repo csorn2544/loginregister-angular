@@ -1,0 +1,33 @@
+<div *ngIf="userInfo">
+  <h2>User Profile</h2>
+  <p><strong>User Email:</strong> {{ userInfo.email }}</p>
+  <p><strong>Username:</strong> {{ userInfo.username }}</p>
+
+  <h2>User Activities</h2>
+  <ng-container *ngIf="userActivities.activities.length > 0; else noActivities">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Activity Name</th>
+          <th>Activity Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let activity of userActivities.activities">
+          <td>{{ activity.activity_name }}</td>
+          <td>{{ activity.activity_date | date: 'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+
+  <ng-template #noActivities>
+    <p>No activities found</p>
+  </ng-template>
+
+  <button (click)="logout()">Logout</button>
+</div>
+
+<div *ngIf="!userInfo">
+  <p>Loading user information...</p>
+</div>
